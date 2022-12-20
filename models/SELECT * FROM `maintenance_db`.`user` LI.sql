@@ -1,0 +1,1 @@
+SELECT * FROM `maintenance_db`.`user` LIMIT 1000;
