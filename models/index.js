@@ -39,3 +39,9 @@ Tenant.hasMany(Request, {
     foreignKey: 'tenant_id',
     onDelete: 'CASCADE',
 });
+
+// PropertyManager has many work orders
+PropertyManager.hasMany(WorkOrder, {
+    foreignKey: 'propertymanager_id',
+    onDelete: 'CASCADE',
+});
