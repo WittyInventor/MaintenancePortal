@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const propertymanagerRoutes = require('./propertymanagerroutes');
-const requestRoutes = require('./requestRoutes');
-const tenantRoutes = require('./tenantRoutes');
-const userRoutes = require('./userRoutes');
+const requestRoutes = require('./requestroutes');
+const tenantRoutes = require('./tenantroutes');
+const userRoutes = require('./userroutes');
+const workorderRoutes = require('./workorderroutes');
 
 
-router.use('/tenant', tenantRoutes);
-router.use('/propertymanagerroutes', propertymanagerRoutes);
-router.use('/userRoutes', userRoutes);
-router.use('/requestRoutes', requestRoutes);
+router.use('/tenants', tenantRoutes);
+router.use('/propertymanagers', propertymanagerRoutes);
+router.use('/users', userRoutes);
+router.use('/requests', requestRoutes);
+router.use('/workorders', workorderRoutes);
 
 
 module.exports = router;
