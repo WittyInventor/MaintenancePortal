@@ -1,0 +1,45 @@
+<div class="card mx-3">
+    <div class="card-header bg-primary mb-0">
+        {{logOrSign}}
+    </div>
+    {{#if loggingIn}}
+    <form class="login-form card-body" id="login-form">
+        {{else}}
+        <form class="signup-form card-body" id="signup-form">
+            {{/if}}
+            <div>
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username"
+                    placeholder="Enter Username">
+            </div>
+            {{#if loggingIn}}
+            {{else}}
+            <div>
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email"
+                    placeholder="Enter email">
+            </div>   
+            {{/if}}
+            <div>
+                <label for="password" class="form-label mt-3">Password</label>
+                <input type="password" class="form-control" id="password"
+                    placeholder="Password">
+            </div>
+            {{#if loggingIn}}
+            {{!-- do nothing --}}
+            {{else}}
+            <div>
+                <label for="confirmpassword" class="form-label mt-3">Confirm
+                    Password</label>
+                <input type="password" class="form-control" id="confirmpassword"
+                    placeholder="Password">
+            </div>
+            {{/if}}
+            <button type="submit" class="btn btn-secondary btn-block mt-2">{{logOrSign}}</button>
+            {{#if loggingIn}}
+            <a class="nav-link px-0" href="/signup">Sign Up Instead</a>
+            {{else}}
+            <a class="nav-link px-0" href="/login">Login Instead</a>
+            {{/if}}
+        </form>
+    </div>
