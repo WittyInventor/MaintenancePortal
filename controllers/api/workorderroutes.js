@@ -2,6 +2,7 @@ const router = require("express").Router();
 const PropertyManager = require("../../models/PropertyManager");
 const WorkOrder  = require("../../models/WorkOrder");
 const Request = require("../../models/Request");
+const Tenant = require("../../models/Tenant");
 // importing information from the models folder in the workorder.js class file.
 
 // GET all workorders
@@ -9,11 +10,12 @@ router.get("/", async (req, res) => {
   // the get('/'), async(promise code) and the users request and response from computer is in the first steps of the get.
   try {
     const workorderData = await WorkOrder.findAll({
-      include: [{ model: PropertyManager }, { model: Request }],
+      include: [{ model: PropertyManager }, { model: Request, include: [Tenant] }],
     });
     // await is telling the code that it will wait until they receive the code communication info from the async promise code and the request from the user and the response from the developers/server.
     res.status(200).json(workorderData);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

@@ -1,0 +1,8 @@
+<h2> Property </h2>
+{{#each propertymanagers as |manager|}}
+<p>Property Manager: {{manager.user.username}}</p>
+<p>Phone: {{manager.phoneinfo}}</p>
+{{#each manager.workorders as |workorder|}}
+{{> workorder-view workorder=workorder}}
+{{/each}}
+{{/each}}
