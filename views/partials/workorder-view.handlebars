@@ -1,0 +1,18 @@
+<div class="card">
+
+    <h4 class="card-header">Work Order: {{workorder.ordernumber}}</h4>
+    <div class="card-body">
+        {{> workorder-item item="Status" value=workorder.status}}
+        {{> workorder-item item="Date Created" value=workorder.createdAt}}
+        {{> workorder-item item="Assigned To" value=workorder.assignedto}}
+        {{> workorder-item item="Urgency" value=workorder.levelofurgency}}
+        {{> workorder-item item="Unit" value=workorder.request.tenant.unitnumber}}
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="status">Notes</label>
+            <div class="col-sm-8">
+            <textarea class="form-control" id="status" disabled >{{workorder.notes}}</textarea>
+            </div>
+        </div>
+        <a href="/request" class="btn-link">Request</a>
+    </div>
+</div>
