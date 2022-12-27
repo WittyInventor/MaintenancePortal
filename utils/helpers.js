@@ -1,7 +1,11 @@
 var moment = require('moment');
 
 const formatDate = date => {
-  return moment(date).format('MMMM Do YYYY, h:mm a');
+  return moment(date).format('MM/DD/YYYY');
+}
+
+const formatDateTime = date => {
+  return moment(date).format('MM/DD/YYYY hh:mm a');
 }
 
 const formatCurrency = amount => {
@@ -14,4 +18,4 @@ const formatCurrency = amount => {
 
 
 
-module.exports = { formatDate, formatCurrency }
+module.exports = { formatDate, formatDateTime, formatCurrency }

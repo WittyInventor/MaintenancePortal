@@ -1,8 +1,22 @@
-<h2> Property </h2>
+<h2>
+    <i class="fa fa-inbox"></i>
+    Work Orders
+</h2>
 {{#each propertymanagers as |manager|}}
-<p>Property Manager: {{manager.user.username}}</p>
-<p>Phone: {{manager.phoneinfo}}</p>
-{{#each manager.workorders as |workorder|}}
-{{> workorder-view workorder=workorder}}
-{{/each}}
+<h4>
+    <i class="fa fa-building"></i>
+    {{manager.user.username}}
+</h4>
+<p>
+    <i class="fa fa-phone"></i>
+    {{manager.phoneinfo}}
+</p>
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-2
+    row-cols-xl-2">
+    {{#each manager.workorders as |workorder|}}
+    <div class="col mb-4">
+        {{> workorder-view workorder=workorder}}
+    </div>
+    {{/each}}
+</div>
 {{/each}}

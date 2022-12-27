@@ -1,0 +1,29 @@
+<h2 class="text-center">
+    <i class="fa fa-inbox"></i>
+    Requests
+</h2>
+{{#each tenants as |tenant|}}
+<div class="card border-success">
+    <h4 class="card-header">
+        <i class="fa fa-user"></i>
+        {{tenant.user.username}}
+        <i class="fa fa-door-closed"></i>
+        {{tenant.unitnumber}}
+    </h4>
+    <span class="float-right">
+        <i class="fa fa-phone"></i>
+        {{tenant.phoneinfo}}
+        <i class="fa fa-envelope"></i>
+        {{tenant.user.email}}
+    </span>
+    {{!-- <div class="row row-cols-1 row-cols-sm-1 row-cols-md- row-cols-lg-2
+        row-cols-xl-2"> --}}
+    <div class="column">
+        {{#each tenant.requests as |request|}}
+        <div class="col mb-4">
+            {{> request-view request=request}}
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{/each}}

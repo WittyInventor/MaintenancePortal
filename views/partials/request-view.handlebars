@@ -1,0 +1,41 @@
+<div class="card border-info bg-primary">
+    <div class="card-header">
+        <p>
+            <i class="fa fa-tools"></i>
+            {{request.categorymaintenance}}
+            <span class="float-right">
+                <i class="fa fa-calendar"></i>
+                {{formatDate request.createdAt}}
+            </span>
+        </p>
+    </div>
+    <div class="card-body">
+        <p>Description ℹ️</p>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <div class="accordion-header" id="headingOne">
+                    <button class="accordion-button bg-primary text-white"
+                        type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{request.id}}">
+                        {{ request.description}}
+                    </button>
+                </div>
+                <div id="collapse{{request.id}}" class="accordion-collapse collapse"
+                    aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {{> request-item item="Description"
+                        value=request.description }}
+                        {{> request-item item="Enter ?"
+                        value=request.permissiontoenter}}
+                        {{> request-item item="Alarm Code"
+                        value=request.alarmcode}}
+                        {{> request-item item="Entry Notes"
+                        value=request.entrynotes}}
+                        {{> request-item item="Created At" value=request.createdAt}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
