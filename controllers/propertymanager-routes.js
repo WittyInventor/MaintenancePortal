@@ -12,10 +12,16 @@ router.get("/", withAuth, async (req, res) => {
   try {
     const dbPropertyData = await PropertyManager.findAll({
       include: [
-        { model: WorkOrder, include: [{ model: Request, include: Tenant }] },
-        { model: User },
+        {
+          model: WorkOrder,
+          include: [
+            { model: Request, include: [{ model: Tenant, include: User }] },
+          ],
+        },
+        { model: User, attributes: { exclude: ["password"] }}
       ],
     });
+
     const propertymanagers = dbPropertyData.map((property) =>
       property.get({ plain: true })
     );

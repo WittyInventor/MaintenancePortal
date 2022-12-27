@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { tenant } = require("../../models");
 const Tenant = require("../../models/Tenant");
 const Request = require("../../models/Request");
+const User = require("../../models/User");
 // importing information from the models folder in the tenant.js class file.
 
 // GET all tenants
@@ -9,7 +10,7 @@ router.get("/", async (req, res) => {
   // the get('/'), async(promise code) and the tenants request and response from computer is in the first steps of the get.
   try {
     const tenantData = await Tenant.findAll({
-      include: [{ model: Request}],
+      include: [{ model: Request}, { model: User, attributes: { exclude: ["password"] }}],
     });
     // await is telling the code that it will wait until they receive the code communication info from the async promise code and the request from the user and the response from the developers/server.
     res.status(200).json(tenantData);
