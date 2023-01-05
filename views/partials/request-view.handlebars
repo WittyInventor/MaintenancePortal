@@ -10,14 +10,14 @@
         </p>
     </div>
     <div class="card-body">
-        <p>Description ℹ️</p>
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <div class="accordion-header" id="headingOne">
                     <button class="accordion-button bg-primary text-white"
                         type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapse{{request.id}}">
-                        {{ request.description}}
+                        <i class="fa fa-sticky-note"></i>
+                         &nbsp;{{ request.description}}  
                     </button>
                 </div>
                 <div id="collapse{{request.id}}" class="accordion-collapse collapse"
