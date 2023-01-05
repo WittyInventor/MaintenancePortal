@@ -1,29 +1,83 @@
 <div class="card bg-primary border-info">
-    <h4 class="card-header">Work Order: {{workorder.ordernumber}}</h4>
-    <div class="card-body">
-        <h5 class="card-title">
+    <h4 class="card-header">
+        <img src="https://img.icons8.com/ios-filled/25/FFFFFF/work.png"/>
+        {{workorder.ordernumber}}
+        <span class="float-right">
             <i class="fa fa-door-closed"></i>
-            {{workorder.request.tenant.unitnumber}}
-        </h5>
-        <h5 class="card-title">
-            <i class="fa fa-user"></i>
-            {{workorder.request.tenant.user.username}}
-        </h5>
-        {{> workorder-item item="Status" value=workorder.status}}
-           <div class="form-group row">
-            <label class="col-sm-4 col-form-label" for="status">Date</label>
-            <div class="col-sm-8">
-                <input class="form-control" id="status" disabled value="{{formatDate workorder.createdAt}}"></input>
-            </div>
-        </div>
-        {{> workorder-item item="Assigned To" value=workorder.assignedto}}
-        {{> workorder-item item="Urgency" value=workorder.levelofurgency}}
+                {{workorder.request.tenant.unitnumber}}
+        </span>
+    </h4>
+    <div class="card-body">
+        <h6 class="card-title">
+            <a href="/requests">
+                <i class="fa fa-tools"></i>
+                {{workorder.request.categorymaintenance}} 
+                <span class="float-right">
+                <i class="fa fa-calendar"></i>
+                {{formatDate workorder.createdAt}}
+            </span>
+            </a>
+        </h6>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label" for="status">Notes</label>
+            <label class="col-sm-4 col-form-label" for="tenant">
+                <i class="fa fa-user"></i>
+            </label>
             <div class="col-sm-8">
-                <textarea class="form-control" id="status" disabled>{{workorder.notes}}</textarea>
+                <input class="form-control" id="tenant-{{workorder.id}}" disabled value="{{workorder.request.tenant.user.username}}"></input>
             </div>
         </div>
-        <a href="/request" class="btn-link">Request</a>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="description">Description</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" id="description" disabled>{{workorder.request.description}}</textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="wo-urgency-{{workorder.id}}">Urgency</label>
+            <div class="col-sm-8">
+                {{!-- <input class="form-control" id="wo-status" disabled value="{{workorder.status}}"></input> --}}
+                <select class="form-control" id="wo-urgency-{{workorder.id}}">
+                    {{!-- <option value="none" selected disabled hidden>Select an Option</option> --}}
+                    <option value="Low" selected>Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+        </div>
+        {{> workorder-item item="Assigned To" name="wo-assigned-to" wo=workorder.id value=workorder.assignedto}}
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="wo-status">Status</label>
+            <div class="col-sm-8">
+                {{!-- <input class="form-control" id="wo-status" disabled value="{{workorder.status}}"></input> --}}
+                <select class="form-control" id="wo-status-{{workorder.id}}">
+                    <option value="none" selected disabled hidden>{{workorder.status}}</option>
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="wo-notes">Notes</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" id="wo-notes-{{workorder.id}}" disaabled>{{workorder.notes}}</textarea>
+            </div>
+        </div>
+        {{> workorder-item item="Invoice" name="wo-invoice" wo=workorder.id value=workorder.invoice}}
+        {{> workorder-item item="Amount $" name="wo-invoice-amount" wo=workorder.id value=workorder.invoiceamount}}
+        {{!-- // Add save button --}}
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-dark btn-block" id="wo-cancel">
+                <i class="fa fa-cancel"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-block wo-save" id="wo-save-{{workorder.id}}" onclick="saveWorkOrder(this)" data-id={{workorder.id}} >
+                <i class="fa fa-save"></i>
+            </button>
+        </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+{{!-- Add jQuery to workorder-view.js --}}
+<script src="/js/workorder.js"></script>

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const PropertyManager = require("../../models/PropertyManager");
-const WorkOrder  = require("../../models/WorkOrder");
+const WorkOrder = require("../../models/WorkOrder");
 const Request = require("../../models/Request");
 const Tenant = require("../../models/Tenant");
 // importing information from the models folder in the workorder.js class file.
@@ -10,7 +10,10 @@ router.get("/", async (req, res) => {
   // the get('/'), async(promise code) and the users request and response from computer is in the first steps of the get.
   try {
     const workorderData = await WorkOrder.findAll({
-      include: [{ model: PropertyManager }, { model: Request, include: [Tenant] }],
+      include: [
+        { model: PropertyManager },
+        { model: Request, include: [Tenant] },
+      ],
     });
     // await is telling the code that it will wait until they receive the code communication info from the async promise code and the request from the user and the response from the developers/server.
     res.status(200).json(workorderData);
@@ -26,7 +29,7 @@ router.get("/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: [{ model: PropertyManager }, { model: Request } ],
+      include: [{ model: PropertyManager }, { model: Request }],
     });
     res.status(200).json(workorderData);
   } catch (err) {
@@ -40,6 +43,21 @@ router.post("/", async (req, res) => {
     const workorderData = await WorkOrder.create(req.body);
     res.status(200).json(workorderData);
   } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+// UPDATE a workorder
+router.put("/:id", async (req, res) => {
+  try {
+    const workorderData = await WorkOrder.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(workorderData);
+  } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
