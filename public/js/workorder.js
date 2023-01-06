@@ -20,7 +20,7 @@ function saveWorkOrder(obj) {
     urgency,
     assignedTo,
     notes,
-    status,
+    "status: "+status,
     invoice,
     invoicevalue,
     workorder
