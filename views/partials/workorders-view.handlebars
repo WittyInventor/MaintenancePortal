@@ -1,0 +1,13 @@
+<h2>
+    {{!-- <i class="fa fa-inbox"></i> --}}
+    <img src="https://img.icons8.com/ios-filled/50/FFFFFF/work.png"/>
+    Work Orders
+</h2>
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-2
+    row-cols-xl-2">
+    {{#each workorders as |workorder|}}
+    <div class="col mb-4">
+        {{> workorder-view workorder=workorder}}
+    </div>
+    {{/each}}
+</div>

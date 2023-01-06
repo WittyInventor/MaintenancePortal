@@ -1,6 +1,16 @@
 <div class="card border-info bg-primary">
     <div class="card-header">
         <p>
+            <i class="fa fa-door-closed"></i>
+                {{request.user.unitnumber}}
+            <span class="float-right">
+                <i class="fa fa-user"></i>
+                {{request.user.username}}
+            </span>
+        </p>
+    </div>
+    <div class="card-header">
+        <p>
             <i class="fa fa-tools"></i>
             {{request.categorymaintenance}}
             <span class="float-right">

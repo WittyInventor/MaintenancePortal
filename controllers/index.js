@@ -2,14 +2,14 @@ const router = require('express').Router();
 
 const apiRoutes = require('./api');
 const homeRoutes = require('./home-routes.js');
-const propertyManagerRoutes = require('./propertymanager-routes.js');
-const tenantRoutes = require('./tenant-routes.js');
+const workOrderRoutes = require('./workorders-routes.js');
+const requestRoutes = require('./requests-routes.js');
 // const dashboardRoutes = require('./dashboard-routes.js');
 
 router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
-router.use('/property-manager', propertyManagerRoutes);
-router.use('/tenant', tenantRoutes);
+router.use('/workorders', workOrderRoutes);
+router.use('/requests', requestRoutes);
 // router.use('/dashboard', dashboardRoutes);
 
 router.use((req, res) => {

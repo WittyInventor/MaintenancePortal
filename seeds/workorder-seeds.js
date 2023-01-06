@@ -2,7 +2,6 @@ const WorkOrder  = require('../models/WorkOrder');
 
 const workorderdata = [
   {
-    propertymanager_id: 1,
     request_id: 1,
     ordernumber: 'O001',
     status: 'Open',
@@ -13,7 +12,6 @@ const workorderdata = [
     invoiceamount: 100.00,
   },
   {
-    propertymanager_id: 1,
     request_id: 2,
     ordernumber: 'O002',
     status: 'In Progress',
@@ -24,7 +22,6 @@ const workorderdata = [
     invoiceamount: 2.00,
   },
   {
-    propertymanager_id: 1,
     request_id: 3,
     ordernumber: 'O003',
     status: 'Completed',
@@ -35,7 +32,6 @@ const workorderdata = [
     invoiceamount: 30.00,
   },
   {
-    propertymanager_id: 1,  
     request_id: 4,
     ordernumber: 'O004',
     status: 'Open',
@@ -46,7 +42,6 @@ const workorderdata = [
     invoiceamount: 400.00,
   },
   {
-    propertymanager_id: 1,
     request_id: 5,
     ordernumber: 'O005',
     status: 'In Progress',
@@ -57,7 +52,6 @@ const workorderdata = [
     invoiceamount: 500.00,
   },
   {
-    propertymanager_id: 1,
     request_id: 6,
     ordernumber: 'O006',
     status: 'Completed',

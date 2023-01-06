@@ -1,26 +1,33 @@
 const router = require("express").Router();
 const sequelize = require("../config/connection");
-const PropertyManager = require("../models/PropertyManager");
 const WorkOrder = require("../models/WorkOrder");
 const User = require("../models/User");
-const Tenant = require("../models/Tenant");
 const Request = require("../models/Request");
 const withAuth = require("../utils/auth");
 
 // GET all posts for Property Manager and Work Order
 router.get("/", withAuth, async (req, res) => {
   try {
-    const tenantData = await Tenant.findAll({
+    const dbData = await WorkOrder.findAll({
       include: [
-        { model: Request },
-        { model: User, attributes: { exclude: ["password"] } },
+        {
+          model: Request,
+          include: [
+            { model: User, attributes: { exclude: ["password"] } },
+          ],
+        },
       ],
     });
-    const tenants = tenantData.map((tenant) => tenant.get({ plain: true }));
 
-    res.render("tenant", {
-      tenants,
-      loggedIn: req.session.logged_in,
+    const workorders = dbData.map((wo) =>
+      wo.get({ plain: true })
+    );
+
+    res.render("workorders", {
+      workorders,
+      logged_in: req.session.logged_in,
+      username: req.session.username,
+      isAdmin: req.session.isAdmin,
     });
   } catch (err) {
     console.log(err);
