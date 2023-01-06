@@ -33,10 +33,10 @@ Request.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    tenant_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'tenant',
+        model: 'user',
         key: 'id',
       },
     },

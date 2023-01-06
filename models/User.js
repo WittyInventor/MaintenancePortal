@@ -37,6 +37,19 @@ User.init(
         len: [4],
       },
     },
+    unitnumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    phoneinfo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     hooks: {

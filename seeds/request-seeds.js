@@ -2,7 +2,7 @@ const Request = require('../models/Request');
 
 const requestdata = [
   {
-    tenant_id: 1,
+    user_id: 1,
     categorymaintenance: 'Plumbing',
     description: 'Leaky faucet',
     permissiontoenter: true,
@@ -10,7 +10,7 @@ const requestdata = [
     entrynotes: 'Please call me when you arrive',
   },
   {
-    tenant_id: 2,
+    user_id: 2,
     categorymaintenance: 'Electrical',
     description: 'Lightbulb out',
     permissiontoenter: true,
@@ -18,7 +18,7 @@ const requestdata = [
     entrynotes: 'Please call me when you arrive',
   },
   {
-    tenant_id: 3,
+    user_id: 3,
     categorymaintenance: 'Doors and Locks',
     description: 'Door lock broken',
     permissiontoenter: true,
@@ -26,7 +26,7 @@ const requestdata = [
     entrynotes: 'Door is unlocked',
   },
   {
-    tenant_id: 3,
+    user_id: 3,
     categorymaintenance: 'Appliance',
     description: 'Refrigerator not working',
     permissiontoenter: true,
@@ -34,7 +34,7 @@ const requestdata = [
     entrynotes: 'Door is unlocked',
   },
   {
-    tenant_id: 2,
+    user_id: 2,
     categorymaintenance: 'Flooring',
     description: 'Flooring damaged',
     permissiontoenter: true,
@@ -42,7 +42,7 @@ const requestdata = [
     entrynotes: 'Please enter through the back door',
   },
   {
-    tenant_id: 1,
+    user_id: 1,
     categorymaintenance: 'HVAC',
     description: 'AC not working',
     permissiontoenter: true,

@@ -48,14 +48,7 @@ WorkOrder.init(
         model: 'request',
         key: 'id',
       },
-    },
-    propertymanager_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'propertymanager',
-        key: 'id',
-      },
-    },
+    }
   },
   {
     sequelize,
