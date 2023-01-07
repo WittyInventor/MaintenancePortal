@@ -10,7 +10,7 @@ const userdata = [
   },
   {
     username: 'Beto',
-    email: 'b@apartmentsBC.com',
+    email: 'br6366820@gmail.com',
     password: 'password12345',
     unitnumber: 'A1',
     phoneinfo: '100-456-7890'
