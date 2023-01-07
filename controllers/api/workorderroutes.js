@@ -2,6 +2,8 @@ const router = require("express").Router();
 const WorkOrder = require("../../models/WorkOrder");
 const Request = require("../../models/Request");
 const User = require("../../models/User");
+const { CourierClient } = require( "@trycourier/courier");
+const courier = CourierClient({ authorizationToken: "dk_prod_V8GFXWN971MTWVPVPX5GGBH9HY4F" }); // get from the Courier UI
 // importing information from the models folder in the workorder.js class file.
 
 // GET all workorders
@@ -57,6 +59,67 @@ router.put("/:id", async (req, res) => {
       },
     });
     res.status(200).json(workorderData);
+    const updatedWorkOrder = await WorkOrder.findOne({
+      where: {
+        id: req.params.id,
+      },
+      include: [{ model: Request , include: [{ model: User }]  }],
+    });
+    console.log(updatedWorkOrder);
+    const email = updatedWorkOrder.request.user.email;
+    const userName = updatedWorkOrder.request.user.username;
+    const id = updatedWorkOrder.request.user.id;
+    const updateWorkOrder = await WorkOrder.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(email);
+    const status = updateWorkOrder.status;
+    console.log(status);
+    const invoiceAmount = updateWorkOrder.invoiceamount;
+
+    if (status == "In Progress"){
+      await courier.send({
+        message: {
+          to: {
+            data: {
+              name: 'id',
+            },
+            email: email,
+          },
+          content: {
+            title: "WE ARE ON IT",
+            body: "Hello, \n\n" + userName + " of Twin Pines Apartments, your request has been recieved and a worker is on the way! \n Thanks,\nTwin Pines Management",
+          },
+          routing: {
+            method: "single",
+            channels: ["email"],
+          },
+        },
+      });
+    } else if (status == 'Completed') {
+      console.log("email");
+      await courier.send({
+        message: {
+          to: {
+            data: {
+              name: 'id',
+            },
+            email: email,
+          },
+          content: {
+            title: "WE ARE ON IT",
+            body: "Hello, \n " + userName + " of Twin Pines Apartments, your request has been completed and a invoice of $" + invoiceAmount + " will be sent out in the upcoming week!, \nThanks,\nTwin Pines Management",
+          },
+          routing: {
+            method: "single",
+            channels: ["email"],
+          },
+        },
+      });
+    }
+
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
