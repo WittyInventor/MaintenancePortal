@@ -109,7 +109,7 @@ router.put("/:id", async (req, res) => {
             email: email,
           },
           content: {
-            title: "WE ARE ON IT",
+            title: "Invoice",
             body: "Hello, \n " + userName + " of Twin Pines Apartments, your request has been completed and a invoice of $" + invoiceAmount + " will be sent out in the upcoming week!, \nThanks,\nTwin Pines Management",
           },
           routing: {
