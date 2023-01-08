@@ -38,7 +38,8 @@
             <label class="col-sm-4 col-form-label" for="wo-status">Status</label>
             <div class="col-sm-8">
                 {{!-- <input class="form-control" id="wo-status" disabled value="{{workorder.status}}"></input> --}}
-                <select class="form-control" id="wo-status-{{workorder.id}}" {{getFormOptions isAdmin}}>
+                {{log "Admin: " isAdmin " Worker: " isWorker}}
+                <select class="form-control" id="wo-status-{{workorder.id}}" {{getFormOptions isAdmin isWorker}}>
                     <option value="{{workorder.status}}" selected disabled hidden>{{workorder.status}}</option>
                     <option value="Open">Open</option>
                     <option value="In Progress">In Progress</option>
@@ -50,7 +51,7 @@
             <label class="col-sm-4 col-form-label" for="wo-urgency-{{workorder.id}}">Urgency</label>
             <div class="col-sm-8">
                 {{!-- <input class="form-control" id="wo-status" disabled value="{{workorder.status}}"></input> --}}
-                <select class="form-control" id="wo-urgency-{{workorder.id}}" {{getFormOptions isAdmin}}>
+                <select class="form-control" id="wo-urgency-{{workorder.id}}" {{getFormOptions isAdmin false}}>
                      <option value="{{workorder.levelofurgency}}" selected disabled hidden>{{workorder.levelofurgency}}</option>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -61,7 +62,7 @@
         <div class="form-group row">
             <label class="col-sm-4 col-form-label" for="wo-assigned-to-{{workorder.id}}">Assigned To</label>
             <div class="col-sm-8">
-                <select class="form-control" id="wo-assigned-to-{{workorder.id}}" {{getFormOptions isAdmin}}>
+                <select class="form-control" id="wo-assigned-to-{{workorder.id}}" {{getFormOptions isAdmin false}}>
                     <option value="{{workorder.assignedto}}" selected disabled hidden>{{workorder.assignedto}}</option>
                     {{#each workers as |worker|}}
                     <option value="{{worker.username}}">{{worker.username}}</option>
@@ -79,16 +80,16 @@
         {{> workorder-item item="Amount $" name="wo-invoice-amount" isAdmin=isAdmin wo=workorder.id value=workorder.invoiceamount}}
         {{!-- // Add save button --}}
     </div>
-    {{#if isAdmin}}
     <div class="card-footer">
         <div class="btn-group float-right">
+            {{#unless isTenant}}
             <a class="btn btn-success wo-save" id="wo-save-{{workorder.id}}" onclick="saveWorkOrder(this)" data-id={{workorder.id}} >
                 <i class="fa fa-save"></i>
                 Save
             </a>
+            {{/unless}}
         </div>
     </div>
-    {{/if}}
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
 {{!-- Add jQuery to workorder-view.js --}}

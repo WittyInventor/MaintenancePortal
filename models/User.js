@@ -8,7 +8,11 @@ class User extends Model {
       username: req.session.username,
       user_id: req.session.user_id,
       isAdmin: req.session.isAdmin,
+      isWorker: req.session.isWorker,
+      isTenant: req.session.isTenant,
       logged_in: req.session.logged_in,
+      unitnumber: req.session.unitnumber,
+      role: req.session.role,
     };
   };
 

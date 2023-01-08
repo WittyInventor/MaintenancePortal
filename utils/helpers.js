@@ -35,12 +35,12 @@ const requestsByStatus = (requests, status) => {
   }
 };
 
-const consoleLog = (message, val) => {
-  console.log("Handlebars: " + message, val);
-};
+const userRole = (userRole,role) => {
+  return userRole === role;
+}
 
-const getFormOptions = (isAdmin) => {
-  return !isAdmin ? "disabled" : "";
+const getFormOptions = (isAdmin,isWorker) => {
+  return (isAdmin || isWorker) ? "":  "disabled";
 }
 
 const getWorkOrders = (workorders,unitnumber) => {
@@ -53,7 +53,7 @@ module.exports = {
   formatCurrency,
   requestNew,
   requestsByStatus,
-  consoleLog,
+  userRole,
   getFormOptions,
   getWorkOrders
 };
