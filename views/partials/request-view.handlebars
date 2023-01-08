@@ -1,8 +1,9 @@
 <div class="card border-info bg-primary">
+    {{consoleLog 'isAdmin' isAdmin}}
     <div class="card-header">
         <p>
             <i class="fa fa-door-closed"></i>
-                {{request.user.unitnumber}}
+            {{request.user.unitnumber}}
             <span class="float-right">
                 <i class="fa fa-user"></i>
                 {{request.user.username}}
@@ -10,14 +11,24 @@
         </p>
     </div>
     <div class="card-header">
-        <p>
-            <i class="fa fa-tools"></i>
-            {{request.categorymaintenance}}
-            <span class="float-right">
-                <i class="fa fa-calendar"></i>
-                {{formatDate request.createdAt}}
-            </span>
-        </p>
+        <div class="row">
+            <div class="col-lg-2 col">
+                <p>
+                    <i class="fa fa-tools"></i>
+                    {{request.categorymaintenance}}
+                </p>
+            </div>
+            <div class="col-lg-7 col text-center">
+                {{> request-item status="disabled" item="Status"
+                value=request.status}}
+            </div>
+            <div class="col-lg-3 col">
+                <p>
+                    <i class="fa fa-calendar"></i>
+                    {{formatDateTime request.createdAt}}
+                </p>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="accordion" id="accordionExample">
@@ -25,27 +36,72 @@
                 <div class="accordion-header" id="headingOne">
                     <button class="accordion-button bg-primary text-white"
                         type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse{{request.id}}">
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{request.id}}">
                         <i class="fa fa-sticky-note"></i>
-                         &nbsp;{{ request.description}}  
+                        &nbsp;{{ request.description}}
                     </button>
                 </div>
-                <div id="collapse{{request.id}}" class="accordion-collapse collapse"
+                <div id="collapse{{request.id}}" class="accordion-collapse
+                    collapse"
                     aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        {{> request-item item="Description"
+                        {{> request-item status="disabled" item="Description"
                         value=request.description }}
-                        {{> request-item item="Enter ?"
+                        {{> request-item status="disabled" item="Category"
+                        value=request.categorymaintenance}}
+                        {{> request-item status="disabled" item="Enter ?"
                         value=request.permissiontoenter}}
-                        {{> request-item item="Alarm Code"
+                        {{> request-item status="disabled" item="Alarm Code"
                         value=request.alarmcode}}
-                        {{> request-item item="Entry Notes"
+                        {{> request-item status="disabled" item="Entry Notes"
                         value=request.entrynotes}}
-                        {{> request-item item="Created At" value=request.createdAt}}
+                        {{> request-item status="disabled" item="Created At"
+                        value=request.createdAt}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{!-- Add accept and reject buttons if the request is pending --}}
+    <div class="card-footer">
+        {{#if (requestNew request)}}
+        <div class="row">
+            <div class="col-lg-6 col-2 text-center">
+            </div>
+            {{log 'admin' isAdmin}}
+            {{#if isAdmin}}
+            <div class="col-lg-6 col-10 text-center">
+                <button class="btn btn-success btn-block" id="accept"
+                    data-id="{{request.id}}" onclick="acceptRequest(this)">
+                    <i class="fa fa-check"></i>
+                    &nbsp;Accept
+                </button>
+                <button class="btn btn-danger btn-block" id="reject"
+                    data-id="{{request.id}}" onclick="rejectRequest(this)">
+                    <i class="fa fa-times"></i>
+                    &nbsp;Reject
+                </button>
+            </div>
+            {{/if}}
+        </div>
+        {{else}}
+        <div class="row">
+            <div class="col text-center">
+                <a href="/workorders/{{request.workorder.id}}"
+                    class="btn btn-primary btn-link">
+                    {{!-- <i class="fa fa-tools"></i> --}}
+                    <img
+                        src="https://img.icons8.com/ios-filled/18/afbdcc/work.png"/>
+                    &nbsp;Work Order: {{request.workorder.ordernumber}}
+                    ({{request.workorder.status}})
+                </a>
+            </div>
+        </div>
+        {{/if}}
+    </div>
 </div>
+<script src="/js/request.js"></script>
+
+{{!-- Path: views/partials/request-item.handlebars --}}

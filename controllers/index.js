@@ -4,10 +4,13 @@ const apiRoutes = require('./api');
 const homeRoutes = require('./home-routes.js');
 const workOrderRoutes = require('./workorders-routes.js');
 const requestRoutes = require('./requests-routes.js');
+const userRoutes = require('./users-routes.js');
 // const dashboardRoutes = require('./dashboard-routes.js');
 
 router.use('/api', apiRoutes);
 router.use('/', homeRoutes);
+
+router.use('/users', userRoutes);
 router.use('/workorders', workOrderRoutes);
 router.use('/requests', requestRoutes);
 // router.use('/dashboard', dashboardRoutes);

@@ -1,6 +1,6 @@
 const Request = require('../models/Request');
 
-const requestdata = [
+let requestdata = [
   {
     user_id: 1,
     categorymaintenance: 'Plumbing',
@@ -8,6 +8,7 @@ const requestdata = [
     permissiontoenter: true,
     alarmcode: '1234',
     entrynotes: 'Please call me when you arrive',
+    status: 'Accepted',
   },
   {
     user_id: 2,
@@ -16,6 +17,7 @@ const requestdata = [
     permissiontoenter: true,
     alarmcode: '2343',
     entrynotes: 'Please call me when you arrive',
+    status: 'Accepted',
   },
   {
     user_id: 3,
@@ -24,6 +26,7 @@ const requestdata = [
     permissiontoenter: true,
     alarmcode: '6788',
     entrynotes: 'Door is unlocked',
+    status: 'Accepted',
   },
   {
     user_id: 3,
@@ -32,6 +35,7 @@ const requestdata = [
     permissiontoenter: true,
     alarmcode: '6788',
     entrynotes: 'Door is unlocked',
+    status: 'Accepted',
   },
   {
     user_id: 2,
@@ -40,6 +44,7 @@ const requestdata = [
     permissiontoenter: true,
     alarmcode: '2343',
     entrynotes: 'Please enter through the back door',
+    status: 'Accepted',
   },
   {
     user_id: 1,
@@ -48,6 +53,7 @@ const requestdata = [
     permissiontoenter: true,
     alarmcode: '1234',
     entrynotes: 'Please wait outside',
+    status: 'Accepted'
   }
 ];
 

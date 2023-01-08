@@ -5,3 +5,11 @@
 .form-text {
     font-size: medium;
 }
+
+
+/* Hide image on small screen */
+@media only screen and (max-width: 600px) {
+    .image {
+        display: none;
+    }
+}

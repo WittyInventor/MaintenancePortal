@@ -6,6 +6,7 @@ const userdata = [
     username: 'admin',
     email: 'admin@apartmentsBC.com',
     password: 'password12345',
+    role: 'Manager',
     isAdmin: true
   },
   {
@@ -23,11 +24,32 @@ const userdata = [
     phoneinfo: '400-456-7890'
   },
   {
-    username: 'Luis Manager',
+    username: 'Luis',
     email: 'manager@apartmentsBC.com',
     password: 'password12345',
     unitnumber: 'A3',
     phoneinfo: '200-456-7890'
+  },
+  {
+    username: 'Jack Handyman',
+    email: 'jack@apartmentsBC.com',
+    password: 'password12345',
+    phoneinfo: '300-456-7890',
+    role: 'Worker'
+  },
+  {
+    username: 'Jhon Electrician',
+    email: 'jhon@apartmentsBC.com',
+    password: 'password12345',
+    phoneinfo: '200-456-7890',
+    role: 'Worker'
+  },
+  {
+    username: 'Donald Plumber',
+    email: 'donald@apartmentsBC.com',
+    password: 'password12345',
+    phoneinfo: '250-556-7890',
+    role: 'Worker'
   },
 ];
 

@@ -3,6 +3,15 @@ const bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
 
 class User extends Model {
+  static getSessionOptions(req){
+    return {
+      username: req.session.username,
+      user_id: req.session.user_id,
+      isAdmin: req.session.isAdmin,
+      logged_in: req.session.logged_in,
+    };
+  };
+
   // set up method to run on instance data (per user) to check password
   checkPassword(loginPw) {
     return bcrypt.compareSync(loginPw, this.password);
@@ -49,6 +58,11 @@ User.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    role: {
+      type: Sequelize.ENUM("Manager", "Tenant", "Worker"),
+      allowNull: false,
+      defaultValue: "Tenant",
     },
   },
   {

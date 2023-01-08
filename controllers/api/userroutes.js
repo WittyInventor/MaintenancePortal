@@ -1,36 +1,6 @@
 const router = require("express").Router();
 const User = require("../../models/User");
-
-// GET all users
-router.get("/", async (req, res) => {
-  try {
-    let userData = await User.findAll({
-      attributes: { exclude: ["password"] },
-    });
-    res.status(200).json(userData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-// GET a single user
-router.get("/:id", async (req, res) => {
-  try {
-    let userData = await User.findByPk(req.params.id, {
-      attributes: { exclude: ["password"] },
-    });
-    if (!userData) {
-      res.status(404).json({ message: "No user found with this id!" });
-      return;
-    }
-    res.status(200).json(userData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
+const Request = require("../../models/Request");
 
 // POST a new user
 router.post("/", async (req, res) => {
@@ -52,7 +22,9 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     // Find the user who matches the posted e-mail address
-    const userData = await User.findOne({ where: { username: req.body.username } });
+    const userData = await User.findOne({
+      where: { username: req.body.username },
+    });
 
     if (!userData) {
       res
@@ -70,14 +42,13 @@ router.post("/login", async (req, res) => {
         .json({ message: "Incorrect email or password, please try again" });
       return;
     }
-
     // Create session variables based on the logged in user
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
       req.session.username = userData.username;
       req.session.isAdmin = userData.isAdmin;
-
+      req.session.unitnumber = userData.unitnumber;
       res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {

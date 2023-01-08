@@ -7,34 +7,24 @@ function saveWorkOrder(obj) {
   const workorder = btn.attr("data-id");
 
   // Get level of urgency
-  const urgency = $("#wo-urgency-"+workorder +" :selected").text();
-  const assignedTo = $("#wo-assigned-to-"+workorder).val();
+  const levelofurgency = $("#wo-urgency-"+workorder +" :selected").text();
+  const assignedto = $("#wo-assigned-to-"+workorder + " :selected").text();
   console.log("assignedTo: ",  $("#wo-assigned-to-"+workorder));
   const notes = $("#wo-notes-"+workorder).val();
   const status = $("#wo-status-"+workorder+" :selected").val();
   const invoice = $("#wo-invoice-"+workorder).val();
-  const invoicevalue = $("#wo-invoice-amount-"+workorder).val();
+  const invoiceamount = $("#wo-invoice-amount-"+workorder).val() || 0;
 
-  console.log("Save button clicked " + workorder);
-  console.log(
-    urgency,
-    assignedTo,
-    notes,
-    "status: "+status,
-    invoice,
-    invoicevalue,
-    workorder
-  );
   // Send the PUT request.
   fetch(`/api/workorders/${workorder}`, {
     method: "PUT",
     body: JSON.stringify({
-      urgency,
-      assignedTo,
+      levelofurgency,
+      assignedto,
       notes,
       status,
       invoice,
-      invoicevalue,
+      invoiceamount,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -42,6 +32,7 @@ function saveWorkOrder(obj) {
   }).then(() => {
     // document.location.replace("/workorders");
     alert("Work Order " + workorder + " Updated");
+    location.reload();
   });
 }
 

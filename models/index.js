@@ -14,8 +14,14 @@ WorkOrder.belongsTo(Request, {
     onDelete: 'CASCADE',
 });
 
-// Tenant has many requests
+// User has many requests
 User.hasMany(Request, {
     foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+});
+
+// Request has one workorder
+Request.hasOne(WorkOrder, {
+    foreignKey: 'request_id',
     onDelete: 'CASCADE',
 });
