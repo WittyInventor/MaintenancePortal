@@ -8,9 +8,13 @@ router.post("/", async (req, res) => {
     let userData = await User.create(req.body);
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.username = userData.username;
-      req.session.email = userData.email;
       req.session.logged_in = true;
+      req.session.username = userData.username;
+      req.session.isAdmin = userData.isAdmin;
+      req.session.unitnumber = userData.unitnumber;
+      req.session.role = userData.role;
+      req.session.isWorker = userData.role === "Worker";
+      req.session.isTenant = userData.role === "Tenant";
       res.status(200).json(userData);
     });
   } catch (err) {
