@@ -125,7 +125,7 @@ const sendEmail = async (workorder) => {
       message =
         "Hello, \n\n" +
         workorder.request.user.username +
-        " of Twin Pines Apartments, your request has been received and a worker is on the way! \n Thanks,\nTwin Pines Management";
+        " of Twin Pines Apartments, your request has been received and worker " + workorder.assignedto + " is on the way! \n Thanks,\nTwin Pines Management";
       break;
     case "Completed":
       title = "INVOICE";
