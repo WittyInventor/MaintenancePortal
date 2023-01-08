@@ -14,16 +14,36 @@ router.get("/", withAuth, async (req, res) => {
 
       let dbData;
       if (req.session.isAdmin) {
-        dbData = await WorkOrder.findAll({
-        order: [["created_at", "DESC"]],
-        where: whereArr,
-        include: [
-          {
-            model: Request,
-            include: [{ model: User, attributes: { exclude: ["password"] } }],
-          },
-        ],
-      });
+        // Check if there is a query string for unitnumber
+        if (req.query.user_id) {
+          // Find all WorkOrder for a specific request.user_id
+          dbData = await WorkOrder.findAll({
+            order: [["created_at", "DESC"]],
+            where: whereArr,
+            include: [
+              {
+                model: Request,
+                where: { user_id: req.query.user_id },
+                include: [
+                  { model: User, attributes: { exclude: ["password"] } },
+                ],
+              },
+            ],
+          });
+        } else {
+          dbData = await WorkOrder.findAll({
+            order: [["created_at", "DESC"]],
+            where: whereArr,
+            include: [
+              {
+                model: Request,
+                include: [
+                  { model: User, attributes: { exclude: ["password"] } },
+                ],
+              },
+            ],
+          });
+        }
       } else {
         dbData = await WorkOrder.findAll({
           order: [["created_at", "DESC"]],
@@ -39,7 +59,6 @@ router.get("/", withAuth, async (req, res) => {
           ],
         });
       }
-
 
       const workorders = dbData.map((wo) => wo.get({ plain: true }));
 

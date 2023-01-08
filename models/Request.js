@@ -45,7 +45,11 @@ Request.init(
       type: Sequelize.ENUM('New', 'Accepted', 'Rejected','Closed'),
       allowNull: false,
       defaultValue: 'New',
-    }
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize,

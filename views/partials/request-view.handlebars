@@ -58,6 +58,17 @@
                         value=request.entrynotes}}
                         {{> request-item status="disabled" item="Created At"
                         value=request.createdAt}}
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-sm"
+                                for="status">Image</label>
+                            <div class="col-sm-8">
+                                <a href="{{request.image}}" target="_blank">
+                                    <img src="{{request.image}}" alt="Image of
+                                        the request" class="img-thumbnail
+                                        mw-100">
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

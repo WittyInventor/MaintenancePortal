@@ -3,6 +3,24 @@ const Request = require("../../models/Request");
 const WorkOrder = require("../../models/WorkOrder");
 const User = require("../../models/User");
 // importing information from the models folder in the request.js class file.
+const path = require("path");
+const multer = require('multer');
+// Create multer object
+const imageUpload = multer({
+    storage: multer.diskStorage(
+        {
+            destination: function (req, file, cb) {
+                cb(null, 'public/images/');
+            },
+            filename: function (req, file, cb) {
+                cb(
+                    null,
+                    file.originalname
+                );
+            }
+        }
+    ), 
+});
 
 // GET all request
 router.get("/", async (req, res) => {
@@ -41,6 +59,7 @@ router.get("/:id", async (req, res) => {
 // CREATE a request
 router.post("/", async (req, res) => {
   try {
+    console.log("Create request", req.body);
     const requestData = await Request.create({
       ...req.body,
       user_id: req.session.user_id,
@@ -68,9 +87,7 @@ router.put("/:id", async (req, res) => {
     );
 
     // If request status is Accepted, create a new Work Order
-    console.log("+++Request Status: ", req.body);
     if (req.body.status === "Accepted") {
-      console.log("Work Order Created");
       const workOrderData = await WorkOrder.create({
         ordernumber: 'WO-000'+req.params.id,
         request_id: req.params.id,
@@ -101,6 +118,19 @@ router.delete("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+router.post('/image', imageUpload.single('image'), (req, res) => { 
+  console.log("req",req.file);
+  res.json('/image api'); 
+});
+
+// Image Get Routes
+router.get('/image/:filename', (req, res) => {
+  const { filename } = req.params;
+  const dirname = path.resolve();
+  const fullfilepath = path.join(dirname, 'images/' + filename);
+  return res.sendFile(fullfilepath);
 });
 
 module.exports = router;

@@ -52,6 +52,10 @@ WorkOrder.init(
         model: 'request',
         key: 'id',
       },
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   },
   {

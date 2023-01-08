@@ -4,8 +4,10 @@
         <img src="https://img.icons8.com/ios-filled/25/FFFFFF/work.png"/>
         {{workorder.ordernumber}}
         <span class="float-right">
+            <a href="/users/{{workorder.request.user.id}}">
             <i class="fa fa-door-closed"></i>
                 {{workorder.request.user.unitnumber}}
+            </a>
         </span>
     </h4>
     <div class="card-body">
@@ -19,21 +21,14 @@
             </span>
             </a>
         </h6>
-        <div class="form-group row">
+        {{!-- <div class="form-group row">
             <label class="col-sm-4 col-form-label" for="tenant">
                 <i class="fa fa-user"></i>
             </label>
             <div class="col-sm-8">
                 <input class="form-control" id="tenant-{{workorder.id}}" disabled value="{{workorder.request.user.username}}"></input>
             </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label" for="description">Request Description</label>
-            <div class="col-sm-8">
-                <textarea class="form-control" id="description" disabled placeholder="No description">{{workorder.request.description}}</textarea>
-            </div>
-        </div>
+        </div> --}}
         <div class="form-group row">
             <label class="col-sm-4 col-form-label" for="wo-status">Status</label>
             <div class="col-sm-8">
@@ -79,6 +74,39 @@
         {{> workorder-item item="Invoice" name="wo-invoice" isAdmin=isAdmin  wo=workorder.id value=workorder.invoice}}
         {{> workorder-item item="Amount $" name="wo-invoice-amount" isAdmin=isAdmin wo=workorder.id value=workorder.invoiceamount}}
         {{!-- // Add save button --}}
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="description">Request Description</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" id="description" disabled placeholder="No description">{{workorder.request.description}}</textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label text-sm" for="image"></label>
+                <div class="col-sm-8">
+                <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                <div class="accordion-header" id="headingOne">
+                    <button class="accordion-button bg-primary btn-sm"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse-image-{{workorder.id}}">
+                        <i class="fa fa-file-image"></i>
+                        &nbsp;Image
+                    </button>
+                </div>
+                <div id="collapse-image-{{workorder.id}}" class="accordion-collapse collapse"
+                    aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                    <a href="{{workorder.request.image}}" target="_blank">
+                        <img src="{{workorder.request.image}}" alt="Image of the request" class="img-thumbnail mw-100">
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
     </div>
     <div class="card-footer">
         <div class="btn-group float-right">
