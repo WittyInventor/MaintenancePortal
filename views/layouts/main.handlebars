@@ -42,20 +42,23 @@
                             Dashboard
                         </a>
                     </li> --}}
-                    {{#if logged_in}}
+                    {{#unless isWorker}}
                     <li class="nav-item">
                         <a href="/requests" class="nav-link">
                             <i class="fa fa-tools"></i>
-                            Requests</a>
+                            Requests
+                        </a>
                     </li>
-                    {{/if}}
-                    {{#if isAdmin}}
+                    {{/unless}}
+                    {{#unless isTenant}}
                     <li class="nav-item">
                         <a href="/workorders" class="nav-link">
                             <img
                                 src="https://img.icons8.com/ios-filled/18/afbdcc/work.png"/>
                             Work Orders</a>
                     </li>
+                    {{/unless}}
+                    {{#if isAdmin}}
                     <li class="nav-item">
                         <a href="/users" class="nav-link">
                             <i class="fas fa-users"></i>
@@ -72,7 +75,7 @@
                     </li>
                     {{else}}
                     <li class="nav-item">
-                        <a href="/" class="nav-link" id="logout">
+                        <a href="/logout" class="nav-link" id="logout">
                             <i class="fas fa-sign-out-alt"></i>
                             Logout
                         </a>
@@ -108,12 +111,7 @@
                             <img class="image"
                                 src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/256/null/external-apartment-interface-kiranshastry-gradient-kiranshastry.png"/>
                         </div>
-                        <div class="col text-center mb-4">
-                            <p>
-                                Twin Pine Apartments
-                            </p>
-                        </div>
-                        {{#if logged_in}}
+                        {{#if isTenant}}
                         <div class="col text-center mb-4">
                             <a href="/new-request" class="btn btn-info btn-lg">
                                 <i class="fas fa-plus"></i>
@@ -127,8 +125,42 @@
                 </div>
             </div>
         </main>
+        <footer class="footer bg-secondary">
+            <div class="container text-center">
+                <p>
+                    Project created by <strong>Team 4</strong> at UofA Bootcamp
+                    &copy; 2023
+                </p>
+            </div>
+        </footer>
+        <div class="modal" id="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title">
+                            <i class="fas fa-tools"></i>
+                            Request
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <a href="/requests?status=New">New maintenance request
+                            received!</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm bg-danger"
+                            data-dismiss="modal" onclick="closeModal(this)" >
+                            <i class="fas fa-times"></i>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{#if logged_in}}
         <script src="/js/logout.js"></script>
+        {{/if}}
+        {{#if isAdmin}}
+        <script src="/js/poll.js"></script>
         {{/if}}
         <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

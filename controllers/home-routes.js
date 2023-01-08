@@ -94,8 +94,6 @@ router.get("/", async (req, res) => {
         }
       });
 
-      console.log("workOrders", workorders);
-
       res.render("homepage", {
         ...sessionOptions,
         users,
@@ -136,6 +134,38 @@ router.get("/new-request", (req, res) => {
     isAdmin: req.session.isAdmin,
     unitnumber: req.session.unitnumber,
   });
+});
+
+let pollTimestamp = Date.now();
+
+router.get("/poll", async (req, res) => {
+  try {
+    // Get number of new requests
+    const newRequests = await Request.findAll({
+      where: {
+        status: "New",
+      },
+    });
+
+    if (newRequests.length > 0) {
+      // Check if the request createdAt is greater than the pollTimestamp
+      for (let i = 0; i < newRequests.length; i++) {
+        let newRequest = newRequests[i];
+        let createdAt = new Date(newRequest.createdAt);
+        if (createdAt > pollTimestamp) {
+          // Update the pollTimestamp
+          pollTimestamp = Date.now();
+          // Send the new request to the client
+          res.status(200).json({ message: "update" });
+          return;
+        }
+      }
+    }
+    res.status(200).json({ message: "" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

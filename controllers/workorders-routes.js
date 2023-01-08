@@ -8,11 +8,13 @@ const withAuth = require("../utils/auth");
 // GET all posts for Property Manager and Work Order
 router.get("/", withAuth, async (req, res) => {
   try {
-    if (req.session.isAdmin) {
+    if (!req.session.isTenant) {
       const query = req.query.status;
       const whereArr = query ? { status: query } : {};
 
-      const dbData = await WorkOrder.findAll({
+      let dbData;
+      if (req.session.isAdmin) {
+        dbData = await WorkOrder.findAll({
         order: [["created_at", "DESC"]],
         where: whereArr,
         include: [
@@ -22,6 +24,22 @@ router.get("/", withAuth, async (req, res) => {
           },
         ],
       });
+      } else {
+        dbData = await WorkOrder.findAll({
+          order: [["created_at", "DESC"]],
+          where: {
+            ...whereArr,
+            assignedto: req.session.username,
+          },
+          include: [
+            {
+              model: Request,
+              include: [{ model: User, attributes: { exclude: ["password"] } }],
+            },
+          ],
+        });
+      }
+
 
       const workorders = dbData.map((wo) => wo.get({ plain: true }));
 
@@ -36,22 +54,14 @@ router.get("/", withAuth, async (req, res) => {
       res.render("workorders", {
         workorders,
         workers,
-        logged_in: req.session.logged_in,
-        username: req.session.username,
-        user_id: req.session.user_id,
-        isAdmin: req.session.isAdmin,
-        unitnumber: req.session.unitnumber,
-        requests_num: req.session.requests_num,
+        ...User.getSessionOptions(req),
       });
     } else {
       // Render error page
       res.render("error", {
-        logged_in: req.session.logged_in,
         status: "401 Unauthorized",
         message: "You are not authorized to view this page.",
-        username: req.session.username,
-        isAdmin: req.session.isAdmin,
-        user_id: req.session.user_id,
+        ...User.getSessionOptions(req),
       });
     }
   } catch (err) {
@@ -85,11 +95,7 @@ router.get("/:id", withAuth, async (req, res) => {
     res.render("workorder", {
       workorder,
       workers,
-      logged_in: req.session.logged_in,
-      username: req.session.username,
-      user_id: req.session.user_id,
-      isAdmin: req.session.isAdmin,
-      unitnumber: req.session.unitnumber,
+      ...User.getSessionOptions(req),
     });
   } catch (err) {
     console.log(err);
@@ -113,10 +119,7 @@ router.get("/new", withAuth, async (req, res) => {
 
     res.render("new-workorder", {
       requests,
-      logged_in: req.session.logged_in,
-      username: req.session.username,
-      user_id: req.session.user_id,
-      isAdmin: req.session.isAdmin,
+      ...User.getSessionOptions(req),
     });
   } catch (err) {
     console.log(err);

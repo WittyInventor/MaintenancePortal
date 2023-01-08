@@ -15,7 +15,7 @@
     row-cols-xl-2">
     {{#each workorders as |workorder|}}
     <div class="col mb-4">
-        {{> workorder-view isAdmin=true workorder=workorder workers=../workers}}
+        {{> workorder-view isAdmin=../isAdmin isTenant=../isTenant isWorker=../isWorker workorder=workorder workers=../workers}}
     </div>
     {{/each}}
 </div>

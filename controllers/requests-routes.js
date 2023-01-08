@@ -60,10 +60,7 @@ router.get("/", withAuth, async (req, res) => {
 
     res.render("requests", {
       requests,
-      logged_in: req.session.logged_in,
-      username: req.session.username,
-      isAdmin: req.session.isAdmin,
-      unitnumber: req.session.unitnumber,
+      ...User.getSessionOptions(req),
       requestsCount,
     });
   } catch (err) {
@@ -90,10 +87,7 @@ router.get("/:id", withAuth, async (req, res) => {
 
         res.render("request", {
             request,
-            logged_in: req.session.logged_in,
-            username: req.session.username,
-            isAdmin: req.session.isAdmin,
-            unitnumber: req.session.unitnumber,
+            ...User.getSessionOptions(req),
         });
 
     } catch (err) {

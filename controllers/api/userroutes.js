@@ -49,6 +49,9 @@ router.post("/login", async (req, res) => {
       req.session.username = userData.username;
       req.session.isAdmin = userData.isAdmin;
       req.session.unitnumber = userData.unitnumber;
+      req.session.role = userData.role;
+      req.session.isWorker = userData.role === "Worker";
+      req.session.isTenant = userData.role === "Tenant";
       res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {

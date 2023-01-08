@@ -1,62 +1,78 @@
- <div class="alert alert-info" role="alert">
-    <h4>
-        {{messageHeader}}
-    </h4>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">{{messageHeader}}</h4>
     <p>
-        {{#if isAdmin}}
-        <a href="/requests?status=New" class="close" data-dismiss="alert">
-            {{else}}
-            <a href="/requests" class="close" data-dismiss="alert">
-            {{/if}}
-               {{message}}
-            </a>
-        </p>
-    </div>
+        Thank you for visiting
+        <i class="fa fa-building"></i>
+        <strong> Aptly </strong>
+        maintenance portal for <strong>Twin Pine Appartments</strong>.
+    </p>
+    <p>
+        {{message}}
+    </p>
+    <hr>
     {{#if isAdmin}}
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">
-                <i class="fa fa-building"></i>
-                Units
-            </h4>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-6">
-                    <h5>Unit Number</h5>
-                    <ul class="list-group">
-                        {{#each users as |user|}}
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col">
-                                    <a href="/users/{{user.id}}">
-                                        {{user.unitnumber}}
-                                    </a>
-                                </div>
+    <div class="mb-0">You can review your requests
+        <a href="/requests" class="mb-0"><strong>here.</strong></a>
+    </div>
+    {{/if}}
+    {{#if isTenant}}
+    <div class="mb-0">You can review your requests
+        <a href="/requests" class="mb-0"><strong>here.</strong></a>
+    </div>
+    {{/if}}
+    {{#if isWorker}}
+    <div class="mb-0">You can review your work orders
+        <a href="/workorders" class="mb-0"><strong>here.</strong></a>
+    </div>
+    {{/if}}
+</div>
+{{#if isAdmin}}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">
+            <i class="fa fa-building"></i>
+            Units Work Orders
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <h6>Unit Number</h6>
+                <ul class="list-group">
+                    {{#each users as |user|}}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                <a href="/users/{{user.id}}">
+                                    {{user.unitnumber}}
+                                </a>
                             </div>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <h5>Open/In-Progress Work Orders</h5>
-                    <ul class="list-group">
-                        {{#each users as |user|}}
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col">
-                                    {{getWorkOrders ../workorders user.unitnumber}}
-                                </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="col-6">
+                <h6>Open/In-Progress</h6>
+                <ul class="list-group">
+                    {{#each users as |user|}}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                <a href="/workorders">
+                                {{getWorkOrders ../workorders
+                                user.unitnumber}}
+                                </a>
                             </div>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
             </div>
         </div>
     </div>
-    {{/if}}
+</div>
+{{/if}}
+{{!-- Path: views/partials/request-view.handlebars --}}
 
-    {{!-- Path: views/partials/request-view.handlebars --}}
-
-    {{!-- <div class="card"> --}}
+{{!-- <div class="card"> --}}
