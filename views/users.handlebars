@@ -1,0 +1,40 @@
+<h2>
+    <i class="fa fa-users"></i>
+    Users
+</h2>
+<div class="card col-8">
+    <div class="card-header">
+        <h4 class="card-title">
+            All Users
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <ul class="list-group">
+                    {{#each users as |user|}}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fa fa-user"></i>
+                                {{@index}}.
+                            </div>
+                            <div class="col-4">
+                                <a href="/users/{{user.id}}">
+                                    {{user.username}}
+                                </a>
+                            </div>
+                            <div class="col-3">
+                                <a href="/users/{{user.id}}">
+                                    {{user.role}}
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{{! Path: views/partials/user-view.handlebars }}

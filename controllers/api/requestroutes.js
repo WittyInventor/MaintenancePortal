@@ -1,14 +1,24 @@
 const router = require("express").Router();
 const Request = require("../../models/Request");
-const { requestroutes } = require("../../models");
 const WorkOrder = require("../../models/WorkOrder");
+const User = require("../../models/User");
 // importing information from the models folder in the request.js class file.
 
 // GET all request
 router.get("/", async (req, res) => {
   // the get('/'), async(promise code) and the request file's request and response from computer is in the first steps of the get.
   try {
-    const requestData = await Request.findAll();
+    const requestData = await Request.findAll({
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ["password"] },
+        },
+        {
+          model: WorkOrder,
+        },
+      ],
+    });
     res.status(200).json(requestData);
   } catch (err) {
     console.log(err);
@@ -36,18 +46,39 @@ router.post("/", async (req, res) => {
       user_id: req.session.user_id,
     });
 
-    // Automatically create WorkOrder for Request
-    const workorderData = await WorkOrder.create({
-      request_id: requestData.id,
-      // Assigin automatic ordernumber
-      ordernumber: "WO-" + ("0000" + requestData.id),
-    });
-
-    console.log("Work Order created",workorderData);
-
     res.status(200).json(requestData);
   } catch (err) {
     console.log(err);
+    res.status(400).json(err);
+  }
+});
+
+// UPDATE a request
+router.put("/:id", async (req, res) => {
+  try {
+    const requestData = await Request.update(
+      {
+        ...req.body,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    // If request status is Accepted, create a new Work Order
+    console.log("+++Request Status: ", req.body);
+    if (req.body.status === "Accepted") {
+      console.log("Work Order Created");
+      const workOrderData = await WorkOrder.create({
+        ordernumber: 'WO-000'+req.params.id,
+        request_id: req.params.id,
+      });
+    }
+
+    res.status(200).json(requestData);
+  } catch (err) {
     res.status(400).json(err);
   }
 });

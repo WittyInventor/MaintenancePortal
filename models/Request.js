@@ -2,7 +2,8 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/connection');
 // sequelize is a library for pre-written sql methods that help us write sql quicker so we don't have to write as much.
 
-class Request extends Model {}
+class Request extends Model {
+}
 
 Request.init(
   {
@@ -40,6 +41,11 @@ Request.init(
         key: 'id',
       },
     },
+    status: {
+      type: Sequelize.ENUM('New', 'Accepted', 'Rejected','Closed'),
+      allowNull: false,
+      defaultValue: 'New',
+    }
   },
   {
     sequelize,
