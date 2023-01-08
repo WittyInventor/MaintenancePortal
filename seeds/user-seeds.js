@@ -52,6 +52,13 @@ const userdata = [
     phoneinfo: '200-456-7893'
   },
   {
+    username: 'Daniel',
+    email: 'daniel@apartmentsBC.com',
+    password: 'password12345',
+    unitnumber: 'A7',
+    phoneinfo: '200-456-7893'
+  },
+  {
     username: 'Jack Handyman',
     email: 'jack@apartmentsBC.com',
     password: 'password12345',
