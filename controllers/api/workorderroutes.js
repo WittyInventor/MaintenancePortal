@@ -4,7 +4,7 @@ const Request = require("../../models/Request");
 const User = require("../../models/User");
 const { CourierClient } = require("@trycourier/courier");
 const courier = CourierClient({
-  authorizationToken: "dk_prod_V8GFXWN971MTWVPVPX5GGBH9HY4F",
+  authorizationToken: "dk_prod_XX7MX0EBDX45C1J8ZWCDFB2HYZKR",
 }); // get from the Courier UI
 
 // GET all workorders
