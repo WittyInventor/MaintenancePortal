@@ -9,7 +9,6 @@ function saveWorkOrder(obj) {
   // Get level of urgency
   const levelofurgency = $("#wo-urgency-"+workorder +" :selected").text();
   const assignedto = $("#wo-assigned-to-"+workorder + " :selected").text();
-  console.log("assignedTo: ",  $("#wo-assigned-to-"+workorder));
   const notes = $("#wo-notes-"+workorder).val();
   const status = $("#wo-status-"+workorder+" :selected").val();
   const invoice = $("#wo-invoice-"+workorder).val();

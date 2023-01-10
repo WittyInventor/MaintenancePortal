@@ -1,7 +1,4 @@
 function submitRequest(obj) {
-  // $(".wo-save").on("click", () => {
-  // Get element
-  // const btn = $(this);
   const btn = $(obj);
   console.log("btn: ", btn);
 
@@ -10,19 +7,28 @@ function submitRequest(obj) {
   const permissiontoenter = $("#request-permission-to-enter").val();
   const alarmcode = $("#request-alarm-code").val();
   const entrynotes = $("#request-entry-notes").val();
+  const imageFile = document.getElementById("request-image").files[0];
+  const image = imageFile ? "/images/"+imageFile.name : null;
+  if (imageFile) {
+    const formData = new FormData();
+    formData.append("image", imageFile);
 
-  console.log("Save button clicked ");
-  console.log(categorymaintenance, description, permissiontoenter, alarmcode, entrynotes)
+    fetch("/api/requests/image", {
+      method: "POST",
+      body: formData,
+    }).then(() => {});
+  }
 
   // Send the PUT request.
-  fetch('/api/requests/', {
+  fetch("/api/requests/", {
     method: "POST",
     body: JSON.stringify({
       categorymaintenance,
       description,
       permissiontoenter,
       alarmcode,
-      entrynotes
+      entrynotes,
+      image,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -34,37 +40,37 @@ function submitRequest(obj) {
   });
 }
 
-function changeStatus(request,newStatus){
+function changeStatus(request, newStatus) {
   fetch(`/api/requests/${request}`, {
     method: "PUT",
     body: JSON.stringify({
-      status: newStatus
+      status: newStatus,
     }),
     headers: {
       "Content-Type": "application/json",
     },
   }).then(() => {
-    if(newStatus === "Accepted"){
+    if (newStatus === "Accepted") {
       alert("Request " + request + " Accepted. Work Order created");
     }
     location.reload();
   });
 }
 
-function acceptRequest(obj){
+function acceptRequest(obj) {
   const btn = $(obj);
   console.log("btn: ", btn);
   const request = btn.attr("data-id");
   console.log("Request: ", request);
-  changeStatus(request,"Accepted");
+  changeStatus(request, "Accepted");
 }
 
-function rejectRequest(obj){
+function rejectRequest(obj) {
   const btn = $(obj);
   console.log("btn: ", btn);
   const request = btn.attr("data-id");
   console.log("Request: ", request);
-  changeStatus(request,"Rejected");
+  changeStatus(request, "Rejected");
 }
 
 // addButtonListeners();

@@ -23,6 +23,33 @@ router.post("/", async (req, res) => {
   }
 });
 
+// UPDATE a user
+router.put("/:id", async (req, res) => {
+  try {
+    if (req.session.logged_in) {
+      const userData = await User.update(
+        {
+          ...req.body,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      res.status(200).json({ message: "success" });
+    } else {
+      res.render("error", {
+        status: "401 Unauthorized",
+        message: "You are not authorized to view this page.",
+        ...User.getSessionOptions(req),
+      });
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 router.post("/login", async (req, res) => {
   try {
     // Find the user who matches the posted e-mail address

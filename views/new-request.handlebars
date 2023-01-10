@@ -37,6 +37,18 @@
                 {{> request-item id="request-alarm-code" item="Alarm Code"}}
                 {{> request-textarea id="request-entry-notes" item="Entry Notes"}}
         </div>
+        {{!-- <form class="form" method="post" enctype="multipart/form-data" action="/upload"> --}}
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="file">
+                    Upload Image
+                </label>
+                <div class="col-sm-8">
+                <input class="form-control text-sm btn" id="request-image" type="file" name="file">
+                </input>
+                </div>
+            </div>
+            {{!-- <input class="form-control text-sm btn btn-success" type="submit" value="Submit"> --}}
+        {{!-- </form> --}}
         <div class="card-footer">
         <div class="btn-group float-right">
             <button type="button" class="btn btn-success btn-block wo-save"
